@@ -30,7 +30,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   Future fetchData() async {
     try {
-      await dotenv.load();
+      await dotenv.load(fileName: '.env');
       final apiKey = dotenv.env['API_KEY'];
       final city = _cityController.text;
       final response = await dio.get(
@@ -64,10 +64,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ForecastScreen(
-                            city: _cityController.text,
-                            apiKey: '6104a06ee8d537d70e46f2cf8537c32d',
-                          )),
+                    builder: (context) => ForecastScreen(
+                      city: _cityController.text,
+                      apiKey: 'API_KEY',
+                    ),
+                  ),
                 );
               },
               icon: Icon(
