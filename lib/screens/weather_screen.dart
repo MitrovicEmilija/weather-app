@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
 
 import 'package:weather_app/screens/forecast_screen.dart';
@@ -29,7 +30,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   Future fetchData() async {
     try {
-      const apiKey = '6104a06ee8d537d70e46f2cf8537c32d';
+      await dotenv.load();
+      final apiKey = dotenv.env['API_KEY'];
       final city = _cityController.text;
       final response = await dio.get(
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey',
@@ -125,7 +127,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                     const SizedBox(height: 40.0),
                     const Image(
-                      image: AssetImage('assets/images/weather-icon-day-with-snow.png'),
+                      image: AssetImage(
+                          'assets/images/weather-icon-day-with-snow.png'),
                       height: 100,
                     ),
                     const SizedBox(height: 40.0),
